@@ -23,7 +23,7 @@ export default function Hero() {
       {/* Heading */}
       <h1
         className="relative z-10 text-white font-extrabold text-center leading-[1.02] tracking-[-3px] max-w-[860px] mb-5"
-        style={{ fontSize: "clamp(52px, 7.5vw, 96px)" }}
+        style={{ fontSize: "clamp(35px, 4.5vw, 76px)" }}
       >
         Tap to unlock music,<br />merch, and moments.
       </h1>
@@ -34,11 +34,11 @@ export default function Hero() {
       </p>
 
       {/* Laptop frame */}
-      <div className="relative z-10 w-full max-w-[860px]">
+      <div className="relative z-10 w-full max-w-[1050px]">
         <div
           className="relative rounded-2xl overflow-hidden"
           style={{
-            background: "#1a1e3a",
+            background: "#0d1025",
             border: "1px solid rgba(255,255,255,0.1)",
             boxShadow:
               "0 40px 120px rgba(0,0,20,0.7), inset 0 1px 0 rgba(255,255,255,0.08)",
@@ -50,10 +50,21 @@ export default function Hero() {
           </div>
 
           {/* ── Main inner stage ── */}
-          {/* Fixed height matching the screenshot ratio, relative for absolute children */}
           <div className="relative w-full" style={{ height: "470px" }}>
 
-            {/* ── Central mockup image — perfectly centered ── */}
+            {/* Float keyframes */}
+            <style>{`
+              @keyframes floatA {
+                0%, 100% { transform: translateY(0px); }
+                50%       { transform: translateY(-7px); }
+              }
+              @keyframes floatB {
+                0%, 100% { transform: translateY(0px); }
+                50%       { transform: translateY(7px); }
+              }
+            `}</style>
+
+            {/* ── Central mockup image — perfectly centered, rounded ── */}
             <div
               className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-center"
               style={{ width: "42%" }}
@@ -61,7 +72,7 @@ export default function Hero() {
               <img
                 src="/img.png"
                 alt="App dashboard mockup"
-                className="w-full h-auto block"
+                className="w-full h-auto block rounded-2xl"
                 style={{ maxHeight: "450px", objectFit: "contain" }}
               />
             </div>
@@ -69,7 +80,7 @@ export default function Hero() {
             {/* ── TOP-LEFT: Total Earnings ── */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
-              style={{ top: "24px", left: "24px", minWidth: "195px" }}
+              style={{ top: "16px", left: "16px", minWidth: "195px", animation: "floatA 3.2s ease-in-out infinite" }}
             >
               <p className="text-white/45 text-[10px] mb-1">Total earnings</p>
               <div className="flex items-center gap-2 mb-1">
@@ -91,7 +102,7 @@ export default function Hero() {
             {/* ── TOP-RIGHT: Hustle & Flow ── */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
-              style={{ top: "24px", right: "24px", minWidth: "175px" }}
+              style={{ top: "16px", right: "16px", minWidth: "175px", animation: "floatB 3.8s ease-in-out infinite" }}
             >
               <div className="flex items-center gap-3">
                 <div
@@ -115,7 +126,7 @@ export default function Hero() {
             {/* ── BOTTOM-LEFT: New Order ── */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
-              style={{ bottom: "24px", left: "24px", minWidth: "210px" }}
+              style={{ bottom: "16px", left: "16px", minWidth: "210px", animation: "floatB 4.1s ease-in-out infinite" }}
             >
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center shrink-0 mt-0.5">
@@ -139,7 +150,7 @@ export default function Hero() {
             {/* ── BOTTOM-RIGHT: Sprinkle Me ── */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
-              style={{ bottom: "24px", right: "24px", minWidth: "210px" }}
+              style={{ bottom: "16px", right: "16px", minWidth: "210px", animation: "floatA 3.5s ease-in-out infinite" }}
             >
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-white text-[11px] font-bold">
@@ -172,6 +183,5 @@ export default function Hero() {
     </section>
   );
 }
-
 
 

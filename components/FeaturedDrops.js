@@ -166,15 +166,15 @@ export default function FeaturedDrops() {
 
                 {/* Top-left tag badge */}
                 <div
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    left: "12px",
-                    backgroundColor: drop.tagColor,
-                    borderRadius: "999px",
-                    padding: "4px 10px",
-                  }}
-                >
+  style={{
+    position: "absolute",
+    top: "8px",
+    left: "8px",
+    backgroundColor: drop.tagColor,
+    borderRadius: "4px",   // ← was "999px"
+    padding: "1px 5px",
+  }}
+>
                   <span
                     style={{
                       color: "white",
@@ -224,27 +224,30 @@ export default function FeaturedDrops() {
 
                 {/* Play button — bottom right, shows on hover */}
                 <div
-                  style={{
-                    position: "absolute",
-                    bottom: "12px",
-                    right: "12px",
-                    width: "38px",
-                    height: "38px",
-                    borderRadius: "50%",
-                    backgroundColor: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    opacity: hoveredIndex === i ? 1 : 0,
-                    transform: hoveredIndex === i ? "scale(1)" : "scale(0.8)",
-                    transition: "opacity 0.25s ease, transform 0.25s ease",
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
-                  }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#111">
-                    <path d="M5 3l14 9-14 9V3z"/>
-                  </svg>
-                </div>
+  style={{
+    position: "absolute",
+    bottom: "12px",
+    right: "12px",
+    width: "38px",
+    height: "38px",
+    borderRadius: "50%",
+    backgroundColor: "#2563eb",   // ← was "white"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: hoveredIndex === i ? 1 : 0,
+    transform: hoveredIndex === i ? "scale(1)" : "scale(0.8)",
+    transition: "opacity 0.25s ease, transform 0.25s ease",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+  }}
+>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="white">  {/* ← was fill="#111" */}
+    <path d="M5 3l14 9-14 9V3z"/>
+  </svg>
+</div>
+
+
+
 
               </div>
 

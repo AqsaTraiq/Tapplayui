@@ -1,4 +1,19 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+
 export default function SoundQuality() {
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const features = [
     {
       icon: (
@@ -41,11 +56,29 @@ export default function SoundQuality() {
   const bars = [3,5,8,12,16,20,24,28,24,30,26,32,28,36,32,28,24,30,26,22,28,24,20,24,20,16,20,16,12,16,12,8,12,8,5,8,5,3];
 
   return (
-    <section style={{
-      backgroundColor: "#0a0d1a",
-      padding: "80px 0",
-      overflow: "hidden",
-    }}>
+    <section
+      ref={sectionRef}
+      style={{ backgroundColor: "#0a0d1a", padding: "80px 0", overflow: "hidden" }}
+    >
+      <style>{`
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-60px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(60px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        .sq-left {
+          opacity: 0;
+          animation: slideInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .sq-right {
+          opacity: 0;
+          animation: slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+        }
+      `}</style>
+
       <div style={{
         maxWidth: "1280px",
         margin: "0 auto",
@@ -55,9 +88,11 @@ export default function SoundQuality() {
         gap: "60px",
       }}>
 
-        {/* Left content */}
-        <div style={{ flex: 1, minWidth: "340px" }}>
-
+        {/* ══ LEFT SIDE ══ */}
+        <div
+          className={visible ? "sq-left" : ""}
+          style={{ flex: 1, minWidth: "340px" }}
+        >
           {/* Badge */}
           <div style={{
             display: "inline-flex",
@@ -96,27 +131,14 @@ export default function SoundQuality() {
           </p>
 
           {/* Feature grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "16px",
-          }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             {features.map((f, i) => (
-              <div key={i} style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "12px",
-              }}>
-                {/* Icon box */}
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <div style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "10px",
+                  width: "36px", height: "36px", borderRadius: "10px",
                   backgroundColor: "rgba(59,130,246,0.1)",
                   border: "1px solid rgba(59,130,246,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: "flex", alignItems: "center", justifyContent: "center",
                   flexShrink: 0,
                 }}>
                   {f.icon}
@@ -130,124 +152,40 @@ export default function SoundQuality() {
           </div>
         </div>
 
-        {/* Right — vinyl visual */}
-        <div style={{
-          flex: 1,
-          minWidth: "400px",
-          height: "500px",
-          borderRadius: "20px",
-          backgroundColor: "#0d1020",
-          position: "relative",
-          overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.06)",
-        }}>
+        {/* ══ RIGHT SIDE ══ */}
+        <div
+          className={visible ? "sq-right" : ""}
+          style={{
+            flex: 1,
+            minWidth: "400px",
+            height: "500px",
+            borderRadius: "20px",
+            position: "relative",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          {/* Full image */}
+          <img
+            src="/sound.png"
+            alt="Vinyl turntable"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
 
-          {/* Vinyl record */}
-          <div style={{
-            position: "absolute",
-            top: "30px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "340px",
-            height: "340px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle at 50% 50%, #2a2a2a 0%, #1a1a1a 30%, #111 50%, #1a1a1a 70%, #0a0a0a 100%)",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-          }}>
-            {/* Grooves */}
-            {[60, 80, 100, 120, 140, 160].map((r, i) => (
-              <div key={i} style={{
-                position: "absolute",
-                top: "50%", left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: `${r * 2}px`, height: `${r * 2}px`,
-                borderRadius: "50%",
-                border: "1px solid rgba(255,255,255,0.04)",
-              }}></div>
-            ))}
-            {/* Center label */}
-            <div style={{
-              position: "absolute",
-              top: "50%", left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "60px", height: "60px",
-              borderRadius: "50%",
-              backgroundColor: "#1a1a2e",
-              border: "2px solid rgba(59,130,246,0.3)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <div style={{
-                width: "10px", height: "10px",
-                borderRadius: "50%",
-                backgroundColor: "#0a0a0a",
-              }}></div>
-            </div>
-            {/* Shine */}
-            <div style={{
-              position: "absolute", inset: 0, borderRadius: "50%",
-              background: "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.06) 0%, transparent 50%)",
-            }}></div>
-          </div>
-
-          {/* Tonearm */}
-          <div style={{
-            position: "absolute",
-            top: "40px",
-            right: "60px",
-            width: "120px",
-            height: "200px",
-            position: "absolute",
-          }}>
-            {/* Pivot base */}
-            <div style={{
-              position: "absolute",
-              top: 0, right: 0,
-              width: "24px", height: "24px",
-              borderRadius: "50%",
-              backgroundColor: "#2a2a3a",
-              border: "2px solid rgba(255,255,255,0.15)",
-            }}></div>
-            {/* Arm */}
-            <div style={{
-              position: "absolute",
-              top: "12px", right: "12px",
-              width: "5px",
-              height: "160px",
-              backgroundColor: "#3a3a4a",
-              borderRadius: "3px",
-              transform: "rotate(20deg)",
-              transformOrigin: "top center",
-            }}></div>
-            {/* Headshell */}
-            <div style={{
-              position: "absolute",
-              bottom: "0px", left: "10px",
-              width: "30px", height: "16px",
-              backgroundColor: "#2a2a3a",
-              borderRadius: "4px",
-              transform: "rotate(20deg)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}></div>
-          </div>
-
-          {/* Dark overlay bottom */}
+          {/* Dark gradient overlay at bottom */}
           <div style={{
             position: "absolute",
             bottom: 0, left: 0, right: 0,
             height: "180px",
-            background: "linear-gradient(to top, #0a0d1a 0%, transparent 100%)",
-          }}></div>
+            background: "linear-gradient(to top, rgba(10,13,26,0.95) 0%, transparent 100%)",
+          }} />
 
-          {/* Audio waveform bars */}
+          {/* Waveform bars */}
           <div style={{
             position: "absolute",
-            bottom: "30px",
-            left: "24px",
-            right: "24px",
-            display: "flex",
-            alignItems: "flex-end",
-            gap: "3px",
-            height: "60px",
+            bottom: "30px", left: "24px", right: "24px",
+            display: "flex", alignItems: "flex-end",
+            gap: "3px", height: "60px",
           }}>
             {bars.map((h, i) => (
               <div key={i} style={{
@@ -256,11 +194,11 @@ export default function SoundQuality() {
                 backgroundColor: "#3b82f6",
                 borderRadius: "2px 2px 0 0",
                 opacity: 0.7 + (h / 100),
-              }}></div>
+              }} />
             ))}
           </div>
-
         </div>
+
       </div>
     </section>
   );

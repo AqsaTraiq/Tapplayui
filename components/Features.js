@@ -3,6 +3,80 @@ import { useState } from "react";
 
 const cards = [
   {
+    title: "Subscriptions",
+    description: "Fans subscribe directly to artists. Predictable monthly income with 70/30 artist-first splits.",
+    tag: "RECURRING REVENUE",
+    tagColor: "#10b981",
+    tagBg: "rgba(16,185,129,0.15)",
+    iconColor: "#10b981",
+    iconBg: "rgba(16,185,129,0.12)",
+    cardBg: "#0d1a18",
+    cardIconBg: "#0f1f1c",
+    glowColor: "rgba(16,185,129,0.15)",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.8">
+        <path d="M17 1l4 4-4 4" />
+        <path d="M3 11V9a4 4 0 014-4h14" />
+        <path d="M7 23l-4-4 4-4" />
+        <path d="M21 13v2a4 4 0 01-4 4H3" />
+      </svg>
+    ),
+    bigIcon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.3">
+        <path d="M17 1l4 4-4 4" />
+        <path d="M3 11V9a4 4 0 014-4h14" />
+        <path d="M7 23l-4-4 4-4" />
+        <path d="M21 13v2a4 4 0 01-4 4H3" />
+      </svg>
+    ),
+  },
+  {
+    title: "NFC Merch",
+    description: "Physical merch embedded with NFC chips. Fans tap to unlock exclusive digital content and experiences.",
+    tag: "PHYGITAL",
+    tagColor: "#7c3aed",
+    tagBg: "rgba(124,58,237,0.15)",
+    iconColor: "#7c3aed",
+    iconBg: "rgba(124,58,237,0.12)",
+    cardBg: "#130f1e",
+    cardIconBg: "#1a1228",
+    glowColor: "rgba(124,58,237,0.15)",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="1.8">
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <line x1="12" y1="18" x2="12" y2="18.01" />
+      </svg>
+    ),
+    bigIcon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="1.3">
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <line x1="12" y1="18" x2="12" y2="18.01" />
+      </svg>
+    ),
+  },
+  {
+    title: "Drops",
+    description: "Time-limited exclusive releases. Create urgency and reward your most engaged fans with rare content.",
+    tag: "EXCLUSIVES",
+    tagColor: "#f97316",
+    tagBg: "rgba(249,115,22,0.15)",
+    iconColor: "#f97316",
+    iconBg: "rgba(249,115,22,0.12)",
+    cardBg: "#1a100d",
+    cardIconBg: "#211410",
+    glowColor: "rgba(249,115,22,0.15)",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="1.8">
+        <path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z" />
+      </svg>
+    ),
+    bigIcon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="1.3">
+        <path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z" />
+      </svg>
+    ),
+  },
+  {
     title: "Events",
     description: "Sell tickets, manage RSVPs, and offer VIP experiences — all connected to your artist profile.",
     tag: "LIVE",
@@ -81,88 +155,14 @@ const cards = [
       </svg>
     ),
   },
-  {
-    title: "Subscriptions",
-    description: "Fans subscribe directly to artists. Predictable monthly income with 70/30 artist-first splits.",
-    tag: "RECURRING REVENUE",
-    tagColor: "#10b981",
-    tagBg: "rgba(16,185,129,0.15)",
-    iconColor: "#10b981",
-    iconBg: "rgba(16,185,129,0.12)",
-    cardBg: "#0d1a18",
-    cardIconBg: "#0f1f1c",
-    glowColor: "rgba(16,185,129,0.15)",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.8">
-        <path d="M17 1l4 4-4 4" />
-        <path d="M3 11V9a4 4 0 014-4h14" />
-        <path d="M7 23l-4-4 4-4" />
-        <path d="M21 13v2a4 4 0 01-4 4H3" />
-      </svg>
-    ),
-    bigIcon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.3">
-        <path d="M17 1l4 4-4 4" />
-        <path d="M3 11V9a4 4 0 014-4h14" />
-        <path d="M7 23l-4-4 4-4" />
-        <path d="M21 13v2a4 4 0 01-4 4H3" />
-      </svg>
-    ),
-  },
-  {
-    title: "NFC Merch",
-    description: "Physical merch embedded with NFC chips. Fans tap to unlock exclusive digital content and experiences.",
-    tag: "PHYGITAL",
-    tagColor: "#7c3aed",
-    tagBg: "rgba(124,58,237,0.15)",
-    iconColor: "#7c3aed",
-    iconBg: "rgba(124,58,237,0.12)",
-    cardBg: "#130f1e",
-    cardIconBg: "#1a1228",
-    glowColor: "rgba(124,58,237,0.15)",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="1.8">
-        <rect x="5" y="2" width="14" height="20" rx="2" />
-        <line x1="12" y1="18" x2="12" y2="18.01" />
-      </svg>
-    ),
-    bigIcon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="1.3">
-        <rect x="5" y="2" width="14" height="20" rx="2" />
-        <line x1="12" y1="18" x2="12" y2="18.01" />
-      </svg>
-    ),
-  },
-  {
-    title: "Drops",
-    description: "Time-limited exclusive releases. Create urgency and reward your most engaged fans with rare content.",
-    tag: "EXCLUSIVES",
-    tagColor: "#f97316",
-    tagBg: "rgba(249,115,22,0.15)",
-    iconColor: "#f97316",
-    iconBg: "rgba(249,115,22,0.12)",
-    cardBg: "#1a100d",
-    cardIconBg: "#211410",
-    glowColor: "rgba(249,115,22,0.15)",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="1.8">
-        <path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z" />
-      </svg>
-    ),
-    bigIcon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="1.3">
-        <path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z" />
-      </svg>
-    ),
-  },
 ];
 
-// How many cards visible at once (the leftmost one is partially clipped)
 const VISIBLE = 3;
 const TOTAL = cards.length;
 
 export default function Features() {
-  const [index, setIndex] = useState(1); // start at 1 so left card peeks
+  const [index, setIndex] = useState(1);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
   const next = () => setIndex((i) => Math.min(TOTAL - VISIBLE, i + 1));
@@ -195,14 +195,7 @@ export default function Features() {
           gap: "6px",
         }}
       >
-        <span
-          style={{
-            color: "#10b981",
-            fontSize: "10px",
-            fontWeight: 700,
-            letterSpacing: "1.2px",
-          }}
-        >
+        <span style={{ color: "#10b981", fontSize: "10px", fontWeight: 700, letterSpacing: "1.2px" }}>
           ✦ PLATFORM FEATURES
         </span>
       </div>
@@ -236,7 +229,7 @@ export default function Features() {
         Explore the tools powering the next generation of independent music.
       </p>
 
-      {/* Carousel wrapper — full width, clips overflow */}
+      {/* Carousel wrapper */}
       <div
         style={{
           width: "100%",
@@ -304,7 +297,7 @@ export default function Features() {
           </button>
         )}
 
-        {/* Sliding track — clips to show 3 cards, leftmost partially visible */}
+        {/* Sliding track */}
         <div style={{ overflow: "hidden", borderRadius: "4px" }}>
           <div
             style={{
@@ -318,6 +311,8 @@ export default function Features() {
             {cards.map((card, i) => (
               <div
                 key={i}
+                onMouseEnter={() => setHoveredCard(i)}
+                onMouseLeave={() => setHoveredCard(null)}
                 style={{
                   flex: `0 0 calc((100% - ${(VISIBLE - 1) * 20}px) / ${VISIBLE})`,
                   backgroundColor: card.cardBg,
@@ -327,6 +322,10 @@ export default function Features() {
                   display: "flex",
                   flexDirection: "column",
                   minWidth: 0,
+                  cursor: "pointer",
+                  // ── Scale entire card on hover ──
+                  transform: hoveredCard === i ? "scale(1.04)" : "scale(1)",
+                  transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
                 }}
               >
                 {/* Top image/icon area */}
@@ -343,7 +342,6 @@ export default function Features() {
                     overflow: "hidden",
                   }}
                 >
-                  {/* Subtle radial glow behind icon */}
                   <div
                     style={{
                       position: "absolute",
@@ -351,7 +349,6 @@ export default function Features() {
                       background: `radial-gradient(ellipse 60% 50% at 50% 60%, ${card.glowColor}, transparent 70%)`,
                     }}
                   />
-                  {/* Phone-shaped icon container */}
                   <div
                     style={{
                       width: "88px",
@@ -372,7 +369,6 @@ export default function Features() {
 
                 {/* Card content */}
                 <div style={{ padding: "18px 18px 20px 18px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {/* Small icon badge */}
                   <div
                     style={{
                       width: "34px",
@@ -388,30 +384,14 @@ export default function Features() {
                     {card.icon}
                   </div>
 
-                  <h3
-                    style={{
-                      color: "white",
-                      fontSize: "17px",
-                      fontWeight: 700,
-                      margin: 0,
-                      letterSpacing: "-0.3px",
-                    }}
-                  >
+                  <h3 style={{ color: "white", fontSize: "17px", fontWeight: 700, margin: 0, letterSpacing: "-0.3px" }}>
                     {card.title}
                   </h3>
 
-                  <p
-                    style={{
-                      color: "rgba(255,255,255,0.45)",
-                      fontSize: "13px",
-                      lineHeight: 1.65,
-                      margin: 0,
-                    }}
-                  >
+                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", lineHeight: 1.65, margin: 0 }}>
                     {card.description}
                   </p>
 
-                  {/* Tag pill */}
                   <span
                     style={{
                       display: "inline-block",
@@ -435,7 +415,7 @@ export default function Features() {
         </div>
       </div>
 
-      {/* Dot indicators — synced with index */}
+      {/* Dot indicators */}
       <div style={{ display: "flex", gap: "8px", marginTop: "36px", alignItems: "center" }}>
         {Array.from({ length: TOTAL - VISIBLE + 1 }).map((_, i) => (
           <div
@@ -455,5 +435,7 @@ export default function Features() {
     </section>
   );
 }
+
+
 
 
