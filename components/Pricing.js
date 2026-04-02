@@ -69,12 +69,12 @@ function Check() {
 
 export default function Pricing() {
   return (
-    <div className="bg-[#08080f] py-16 px-4 font-sans">
+    <div className="bg-[#05050e] py-16 px-4 font-sans">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <span className="border border-white/15 text-white/50 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6">
+          <span className="bg-blue-500/10 border border-blue-500/25 text-blue-400 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6">
             PRICING
           </span>
           <h2 className="text-4xl font-extrabold text-white leading-tight mb-1">
@@ -92,7 +92,6 @@ export default function Pricing() {
         <div className="grid grid-cols-3 gap-4 items-start">
           {plans.map((plan) => (
             <div key={plan.name} className="relative">
-              {/* Most Popular badge */}
               {plan.popular && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
                   <span className="bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase">
@@ -102,11 +101,9 @@ export default function Pricing() {
               )}
 
               <div className={`rounded-2xl p-6 ${plan.cardStyle} ${plan.popular ? "pt-8" : ""}`}>
-                {/* Plan name */}
                 <p className="text-white text-sm font-semibold mb-0.5">{plan.name}</p>
                 <p className="text-white/35 text-xs mb-5">{plan.desc}</p>
 
-                {/* Price */}
                 <div className="mb-6">
                   {plan.name === "Enterprise" ? (
                     <span className="text-white text-4xl font-extrabold">{plan.price}</span>
@@ -123,12 +120,10 @@ export default function Pricing() {
                   )}
                 </div>
 
-                {/* CTA */}
                 <button className={`w-full py-2.5 rounded-xl text-sm font-semibold transition-colors mb-6 ${plan.ctaStyle}`}>
                   {plan.cta}
                 </button>
 
-                {/* Features */}
                 <ul className="flex flex-col gap-2.5">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2">
@@ -145,7 +140,7 @@ export default function Pricing() {
         {/* Footer note */}
         <p className="text-center text-white/35 text-xs mt-8">
           All plans include the industry-leading{" "}
-          <span className="text-white font-semibold">70/30 artist-first revenue split</span>
+          <span className="text-green-400 font-semibold">70/30 artist-first revenue split</span>
           {" "}— you keep more of what you earn.
         </p>
 
@@ -153,6 +148,5 @@ export default function Pricing() {
     </div>
   );
 }
-
 
 

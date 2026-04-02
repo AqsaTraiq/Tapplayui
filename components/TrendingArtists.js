@@ -6,42 +6,42 @@ const artists = [
     name: "K. Maddox",
     genre: "Hip-Hop",
     followers: "2.4M followers",
-    image: "https://placehold.co/200x200/1a1a2e/ffffff?text=KM",
+    image: "/TA1.jpg",
   },
   {
     id: 2,
     name: "Mia Torres",
     genre: "R&B",
     followers: "1.8M followers",
-    image: "https://placehold.co/200x200/0d0d30/4466ff?text=MT",
+    image: "/TA2.jpg",
   },
   {
     id: 3,
     name: "Lo Russell",
     genre: "Alternative",
     followers: "3.1M followers",
-    image: "https://placehold.co/200x200/111111/cccccc?text=LR",
+    image: "/TA3.jpg",
   },
   {
     id: 4,
     name: "River James",
     genre: "Indie Folk",
     followers: "890K followers",
-    image: "https://placehold.co/200x200/1a2a1a/aaccaa?text=RJ",
+    image: "/TA4.jpg",
   },
   {
     id: 5,
     name: "Beat Collective",
     genre: "Electronic",
     followers: "1.2M followers",
-    image: "https://placehold.co/200x200/0a1a0a/33aa55?text=BC",
+    image: "/TA5.jpg",
   },
 ];
 
 export default function TrendingArtists() {
   return (
     <div className="bg-[#08080f] py-12 px-8 font-sans">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-10">
@@ -55,18 +55,26 @@ export default function TrendingArtists() {
         </div>
 
         {/* Artists Row */}
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-start gap-10">
           {artists.map((artist) => (
             <div
               key={artist.id}
               className="flex flex-col items-center text-center cursor-pointer group"
             >
-              {/* Circle image */}
-              <div className="w-[155px] h-[155px] rounded-full overflow-hidden mb-4 ring-1 ring-white/10 group-hover:ring-white/25 transition-all">
+              {/* Circle image with hover: moves up + sky-blue ring */}
+              <div
+                className="
+                  w-[155px] h-[155px] rounded-full overflow-hidden mb-4
+                  ring-2 ring-transparent
+                  group-hover:ring-sky-400
+                  group-hover:-translate-y-2
+                  transition-all duration-300 ease-in-out
+                "
+              >
                 <img
                   src={artist.image}
                   alt={artist.name}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
 
@@ -82,5 +90,6 @@ export default function TrendingArtists() {
     </div>
   );
 }
+
 
 
