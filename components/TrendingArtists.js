@@ -41,7 +41,7 @@ const artists = [
 export default function TrendingArtists() {
   return (
     <div className="bg-[#08080f] py-12 px-8 font-sans">
-      <div className="max-w-6xl">
+      <div className="max-w-6xl mx-auto"> {/* ← added mx-auto */}
 
         {/* Header */}
         <div className="flex items-center justify-between mb-10">
@@ -55,7 +55,7 @@ export default function TrendingArtists() {
         </div>
 
         {/* Artists Row */}
-        <div className="flex items-start justify-start gap-10">
+        <div className="flex items-start justify-center gap-10"> {/* ← justify-center */}
           {artists.map((artist) => (
             <div
               key={artist.id}
@@ -90,6 +90,5 @@ export default function TrendingArtists() {
     </div>
   );
 }
-
 
 
