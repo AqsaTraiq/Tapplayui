@@ -1,19 +1,19 @@
 export default function Footer() {
   return (
     <footer className="bg-[#08080f] border-t border-white/5 font-sans">
-      <div className="max-w-7xl mx-auto px-16 py-16">
-        <div className="grid grid-cols-5 gap-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-16 py-12 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
 
-          {/* Logo + tagline */}
-          <div className="col-span-1">
+          {/* Logo + tagline — full width on mobile */}
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-5">
-              <svg className="w-7 h-7 text-white -rotate-270" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="28" height="28" fill="none" stroke="white" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
               </svg>
               <span className="text-white text-base font-semibold tracking-tight">TapPlay</span>
             </div>
             <p className="text-white/25 text-sm leading-relaxed">
-              Music, merch, and moments— <br />all in one tap.
+              Music, merch, and moments—<br />all in one tap.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-16 py-5 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
           <p className="text-white/25 text-xs">© 2026 TapPlay, Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
             {["Twitter","Instagram","TikTok","YouTube"].map((s) => (
@@ -82,6 +82,4 @@ export default function Footer() {
     </footer>
   );
 }
-
-
 

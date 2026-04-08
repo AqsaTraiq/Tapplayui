@@ -40,8 +40,8 @@ const artists = [
 
 export default function TrendingArtists() {
   return (
-    <div className="bg-[#08080f] py-12 px-8 font-sans">
-      <div className="max-w-6xl mx-auto"> {/* ← added mx-auto */}
+    <div className="bg-[#08080f] py-12 px-6 md:px-8 font-sans">
+      <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-10">
@@ -54,17 +54,18 @@ export default function TrendingArtists() {
           </button>
         </div>
 
-        {/* Artists Row */}
-        <div className="flex items-start justify-center gap-10"> {/* ← justify-center */}
+        {/* Artists Row — scroll on mobile, row on desktop */}
+        <div className="flex items-start justify-start md:justify-center gap-6 md:gap-10 overflow-x-auto pb-4 md:pb-0 md:overflow-visible">
           {artists.map((artist) => (
             <div
               key={artist.id}
-              className="flex flex-col items-center text-center cursor-pointer group"
+              className="flex flex-col items-center text-center cursor-pointer group flex-shrink-0"
             >
-              {/* Circle image with hover: moves up + sky-blue ring */}
+              {/* Circle image */}
               <div
                 className="
-                  w-[155px] h-[155px] rounded-full overflow-hidden mb-4
+                  w-[110px] h-[110px] md:w-[155px] md:h-[155px]
+                  rounded-full overflow-hidden mb-4
                   ring-2 ring-transparent
                   group-hover:ring-sky-400
                   group-hover:-translate-y-2
@@ -79,7 +80,7 @@ export default function TrendingArtists() {
               </div>
 
               {/* Text */}
-              <p className="text-white text-sm font-semibold mb-1">{artist.name}</p>
+              <p className="text-white text-xs md:text-sm font-semibold mb-1">{artist.name}</p>
               <p className="text-white/40 text-xs mb-1">{artist.genre}</p>
               <p className="text-white/25 text-xs">{artist.followers}</p>
             </div>
@@ -90,5 +91,6 @@ export default function TrendingArtists() {
     </div>
   );
 }
+
 
 

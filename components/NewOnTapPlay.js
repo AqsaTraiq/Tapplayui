@@ -10,10 +10,42 @@ export default function NewOnTapPlay() {
   return (
     <section style={{
       backgroundColor: "#0a0d1a",
-      padding: "60px 24px 80px",
+      padding: "60px 0 80px",
       maxWidth: "1280px",
       margin: "0 auto",
     }}>
+
+      <style>{`
+        .new-tracks-scroll {
+          display: flex;
+          gap: 16px;
+          overflow-x: auto;
+          padding: 0 24px 12px;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .new-tracks-scroll::-webkit-scrollbar {
+          display: none;
+        }
+        .new-tracks-card {
+          flex: 0 0 160px;
+          scroll-snap-align: start;
+        }
+        @media (min-width: 1024px) {
+          .new-tracks-scroll {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            overflow-x: visible;
+            padding: 0 24px;
+            scroll-snap-type: none;
+          }
+          .new-tracks-card {
+            flex: unset;
+          }
+        }
+      `}</style>
 
       {/* Header */}
       <div style={{
@@ -21,10 +53,11 @@ export default function NewOnTapPlay() {
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: "32px",
+        padding: "0 24px",
       }}>
         <h2 style={{
           color: "white",
-          fontSize: "26px",
+          fontSize: "clamp(20px, 3vw, 26px)",
           fontWeight: 800,
           margin: 0,
           letterSpacing: "-0.5px",
@@ -43,25 +76,20 @@ export default function NewOnTapPlay() {
         </a>
       </div>
 
-      {/* Cards */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gap: "20px",
-      }}>
+      {/* Cards — horizontal scroll on mobile, grid on desktop */}
+      <div className="new-tracks-scroll">
         {tracks.map((track, i) => (
-          <div key={i} style={{ cursor: "pointer" }}>
+          <div key={i} className="new-tracks-card" style={{ cursor: "pointer" }}>
 
             {/* Thumbnail */}
             <div style={{
               borderRadius: "14px",
               overflow: "hidden",
-              height: "180px",
+              height: "160px",
               position: "relative",
               marginBottom: "12px",
               border: "1px solid rgba(255,255,255,0.06)",
             }}>
-              {/* Actual image */}
               <img
                 src={track.img}
                 alt={track.title}
@@ -73,7 +101,7 @@ export default function NewOnTapPlay() {
                 }}
               />
 
-              {/* NFC badge — wifi/signal icon matching screenshot */}
+              {/* NFC badge */}
               <div style={{
                 position: "absolute",
                 top: "10px",
@@ -87,7 +115,6 @@ export default function NewOnTapPlay() {
                 gap: "5px",
                 backdropFilter: "blur(6px)",
               }}>
-                {/* NFC / wifi signal icon — matches screenshot exactly */}
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.2">
                   <path d="M5 12.55a11 11 0 0114.08 0"/>
                   <path d="M1.42 9a16 16 0 0121.16 0"/>
@@ -99,10 +126,10 @@ export default function NewOnTapPlay() {
             </div>
 
             {/* Info */}
-            <p style={{ color: "white", fontSize: "14px", fontWeight: 700, margin: "0 0 3px 0" }}>
+            <p style={{ color: "white", fontSize: "13px", fontWeight: 700, margin: "0 0 3px 0" }}>
               {track.title}
             </p>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", margin: 0 }}>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", margin: 0 }}>
               {track.artist} · {track.type}
             </p>
 
@@ -113,6 +140,5 @@ export default function NewOnTapPlay() {
     </section>
   );
 }
-
 
 

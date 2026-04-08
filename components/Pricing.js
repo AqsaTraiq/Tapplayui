@@ -61,7 +61,7 @@ const plans = [
 
 function Check() {
   return (
-    <svg className="w-3.5 h-3.5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg width="14" height="14" fill="none" stroke="#60a5fa" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: "2px" }}>
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -77,10 +77,10 @@ export default function Pricing() {
           <span className="bg-blue-500/10 border border-blue-500/25 text-blue-400 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6">
             PRICING
           </span>
-          <h2 className="text-4xl font-extrabold text-white leading-tight mb-1">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-1">
             Simple, transparent
           </h2>
-          <h2 className="text-4xl font-extrabold text-blue-400 leading-tight mb-5">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-400 leading-tight mb-5">
             pricing for creators.
           </h2>
           <p className="text-white/35 text-sm max-w-md leading-relaxed">
@@ -88,8 +88,8 @@ export default function Pricing() {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-3 gap-4 items-start">
+        {/* Cards — 1 col mobile, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
           {plans.map((plan) => (
             <div key={plan.name} className="relative">
               {plan.popular && (

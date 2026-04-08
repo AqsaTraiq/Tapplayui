@@ -3,7 +3,7 @@
 const features = [
   {
     icon: (
-      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
@@ -12,7 +12,7 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c2.485 0 4-4.03 4-9s-1.515-9-4-9-4 4.03-4 9 1.515 9 4 9zm-9-9h18" />
       </svg>
     ),
@@ -21,7 +21,7 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
       </svg>
     ),
@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="16" height="16" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
       </svg>
     ),
@@ -75,7 +75,7 @@ const timeline = [
 const stats = [
   {
     icon: (
-      <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="24" height="24" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
       </svg>
     ),
@@ -84,7 +84,7 @@ const stats = [
   },
   {
     icon: (
-      <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="24" height="24" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
     ),
@@ -93,7 +93,7 @@ const stats = [
   },
   {
     icon: (
-      <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="24" height="24" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
       </svg>
     ),
@@ -102,7 +102,7 @@ const stats = [
   },
   {
     icon: (
-      <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="24" height="24" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
@@ -115,19 +115,19 @@ export default function About() {
   return (
     <div className="bg-[#08080f] font-sans">
 
-      {/* ── Section 1: Built by creators ── */}
+      {/* Section 1: Built by creators */}
       <div className="py-20 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-20 items-start">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start">
 
           {/* Left */}
           <div>
             <span className="bg-blue-500/10 border border-blue-500/25 text-blue-400 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6 inline-block">
               ABOUT TAPPLAY
             </span>
-            <h2 className="text-5xl font-extrabold text-white leading-tight mb-1">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-1">
               Built by creators,
             </h2>
-            <h2 className="text-5xl font-extrabold text-blue-500 leading-tight mb-8">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-blue-500 leading-tight mb-8">
               for creators.
             </h2>
             <p className="text-white/50 text-sm leading-relaxed mb-4">
@@ -138,7 +138,7 @@ export default function About() {
             </p>
 
             {/* Feature grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {features.map((f) => (
                 <div key={f.label} className="flex items-start gap-3">
                   <div className="mt-0.5 flex-shrink-0 bg-blue-500/10 border border-blue-500/20 rounded-lg p-2">
@@ -181,21 +181,21 @@ export default function About() {
         </div>
       </div>
 
-      {/* ── Section 2: The numbers speak ── */}
+      {/* Section 2: The numbers speak */}
       <div className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h3 className="text-white text-2xl font-bold mb-2">The numbers speak</h3>
             <p className="text-white/35 text-sm">Trusted by artists and fans worldwide</p>
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {stats.map((s) => (
               <div
                 key={s.label}
                 className="bg-[#0e0e1a] border border-white/5 rounded-2xl flex flex-col items-center justify-center text-center py-8 px-4 gap-3"
               >
                 {s.icon}
-                <p className="text-white text-3xl font-extrabold">{s.value}</p>
+                <p className="text-white text-2xl md:text-3xl font-extrabold">{s.value}</p>
                 <p className="text-white/35 text-xs">{s.label}</p>
               </div>
             ))}
@@ -203,18 +203,18 @@ export default function About() {
         </div>
       </div>
 
-      {/* ── Section 3: CTA Card ── */}
+      {/* Section 3: CTA Card */}
       <div className="py-8 px-4 pb-16">
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0d1a3a] via-[#0a1030] to-[#0d0d20] border border-blue-500/15 px-8 py-14 text-center">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0d1a3a] via-[#0a1030] to-[#0d0d20] border border-blue-500/15 px-6 md:px-8 py-12 md:py-14 text-center">
             <div className="absolute inset-0 bg-gradient-radial from-blue-600/10 via-transparent to-transparent pointer-events-none" />
 
             <span className="border border-blue-500/30 text-blue-400 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6 inline-block">
               CREATOR INFRASTRUCTURE
             </span>
 
-            <h3 className="text-white text-3xl font-extrabold mb-1">Your revenue engine</h3>
-            <h3 className="text-blue-400 text-3xl font-extrabold mb-5">starts with one tap.</h3>
+            <h3 className="text-white text-2xl md:text-3xl font-extrabold mb-1">Your revenue engine</h3>
+            <h3 className="text-blue-400 text-2xl md:text-3xl font-extrabold mb-5">starts with one tap.</h3>
 
             <p className="text-white/40 text-sm max-w-sm mx-auto leading-relaxed mb-6">
               Subscriptions, NFC merch, drops, events, podcasts — all connected into one monetisation platform. 70% goes directly to artists.
@@ -231,14 +231,14 @@ export default function About() {
             </div>
 
             {/* Buttons */}
-            <div className="flex items-center justify-center gap-3">
-              <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
                 Launch Your Revenue Engine
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </button>
-              <button className="text-white/50 text-sm font-semibold hover:text-white/80 transition-colors border border-white/10 hover:border-white/20 px-5 py-2.5 rounded-full">
+              <button className="w-full sm:w-auto text-white/50 text-sm font-semibold hover:text-white/80 transition-colors border border-white/10 hover:border-white/20 px-5 py-2.5 rounded-full">
                 Talk to Sales
               </button>
             </div>
