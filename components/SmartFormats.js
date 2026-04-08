@@ -39,8 +39,8 @@ const products = [
     id: "apparel",
     label: "Smart Apparel",
     desc: "T-shirts, hoodies, and caps with hidden NFC tags. Wear your favourite artist — and tap to stream their latest.",
-    image: "/card3.png",
-    thumb: "/card3.png",
+    image: "/card45.png",
+    thumb: "/card45.png",
     accentColor: "#10b981",
     accentBg: "rgba(16,185,129,0.18)",
     accentBorder: "rgba(16,185,129,0.35)",
@@ -105,7 +105,7 @@ const steps = [
   {
     num: "01",
     icon: (
-      <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="32" height="32" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
       </svg>
@@ -116,7 +116,7 @@ const steps = [
   {
     num: "02",
     icon: (
-      <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="32" height="32" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
       </svg>
@@ -127,7 +127,7 @@ const steps = [
   {
     num: "03",
     icon: (
-      <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg width="32" height="32" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
@@ -166,10 +166,10 @@ export default function SmartFormats() {
           <span className="border border-white/15 text-white/50 text-[10px] font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6">
             SMART FORMATS
           </span>
-          <h2 className="text-4xl font-extrabold text-white mb-2 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-2 leading-tight">
             NFC-powered products
           </h2>
-          <h2 className="text-4xl font-extrabold text-blue-400 mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-400 mb-4 leading-tight">
             for every touchpoint.
           </h2>
           <p className="text-white/40 text-sm max-w-md leading-relaxed">
@@ -177,19 +177,18 @@ export default function SmartFormats() {
           </p>
         </div>
 
-        {/* Main section */}
+        {/* Main section — stacks on mobile */}
         <div
-          className="flex gap-5 mb-6"
+          className="flex flex-col md:flex-row gap-5 mb-6"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Left: large preview image — fills the entire card */}
-          <div className="w-[52%] flex-shrink-0">
+          {/* Large preview image */}
+          <div className="w-full md:w-[52%] flex-shrink-0">
             <div
               className="relative rounded-2xl overflow-hidden border border-white/5"
               style={{ height: "420px" }}
             >
-              {/* Image fills entire card */}
               <Image
                 src={active.image}
                 alt={active.label}
@@ -198,15 +197,11 @@ export default function SmartFormats() {
                 sizes="500px"
               />
 
-              {/* Bottom gradient + info */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/92 via-black/50 to-transparent p-5 z-10">
                 <div className="flex items-center gap-2 mb-2">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{
-                      backgroundColor: active.accentBg,
-                      border: `1px solid ${active.accentBorder}`,
-                    }}
+                    style={{ backgroundColor: active.accentBg, border: `1px solid ${active.accentBorder}` }}
                   >
                     {active.icon(active.accentColor)}
                   </div>
@@ -217,14 +212,9 @@ export default function SmartFormats() {
                 </p>
               </div>
 
-              {/* Top-right NFC badge */}
               <div
                 className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center z-10"
-                style={{
-                  backgroundColor: active.accentBg,
-                  border: `1px solid ${active.accentBorder}`,
-                  backdropFilter: "blur(6px)",
-                }}
+                style={{ backgroundColor: active.accentBg, border: `1px solid ${active.accentBorder}`, backdropFilter: "blur(6px)" }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active.accentColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
@@ -233,7 +223,7 @@ export default function SmartFormats() {
             </div>
           </div>
 
-          {/* Right: product list */}
+          {/* Product list */}
           <div className="flex-1 flex flex-col gap-1">
             {products.map((p, i) => {
               const isActive = activeIndex === i;
@@ -244,14 +234,10 @@ export default function SmartFormats() {
                   className="w-full text-left rounded-xl px-4 py-3 transition-all duration-300"
                   style={{
                     backgroundColor: isActive ? "rgba(255,255,255,0.04)" : "transparent",
-                    border: isActive
-                      ? `1px solid ${p.accentBorder}`
-                      : "1px solid transparent",
+                    border: isActive ? `1px solid ${p.accentBorder}` : "1px solid transparent",
                   }}
                 >
                   <div className="flex items-start gap-3">
-
-                    {/* Icon badge */}
                     <div
                       className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300"
                       style={{
@@ -263,7 +249,6 @@ export default function SmartFormats() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      {/* Label + short progress line */}
                       <div className="flex items-center gap-2 mb-0.5">
                         <p
                           className="text-sm font-semibold whitespace-nowrap transition-colors duration-300"
@@ -271,15 +256,10 @@ export default function SmartFormats() {
                         >
                           {p.label}
                         </p>
-
-                        {/* Short fixed-width progress line after label */}
                         {isActive && (
                           <div
                             className="h-[2px] rounded-full overflow-hidden flex-shrink-0"
-                            style={{
-                              width: "48px",
-                              backgroundColor: "rgba(255,255,255,0.08)",
-                            }}
+                            style={{ width: "48px", backgroundColor: "rgba(255,255,255,0.08)" }}
                           >
                             {!isPaused && (
                               <div
@@ -294,11 +274,8 @@ export default function SmartFormats() {
                           </div>
                         )}
                       </div>
-
                       {isActive && (
-                        <p className="text-white/40 text-xs leading-relaxed">
-                          {p.desc}
-                        </p>
+                        <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
                       )}
                     </div>
                   </div>
@@ -308,8 +285,8 @@ export default function SmartFormats() {
           </div>
         </div>
 
-        {/* Thumbnail row — larger cards, text BELOW image */}
-        <div className="grid grid-cols-6 gap-3 mb-6">
+        {/* Thumbnail row — 3 cols on mobile, 6 on desktop */}
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-6">
           {products.map((p, i) => (
             <button
               key={p.id}
@@ -317,14 +294,11 @@ export default function SmartFormats() {
               className="rounded-xl overflow-hidden transition-all duration-300 flex flex-col"
               style={{
                 backgroundColor: "#0e0e1a",
-                border: activeIndex === i
-                  ? `1px solid ${p.accentColor}`
-                  : "1px solid rgba(255,255,255,0.07)",
+                border: activeIndex === i ? `1px solid ${p.accentColor}` : "1px solid rgba(255,255,255,0.07)",
                 transform: activeIndex === i ? "scale(1.04)" : "scale(1)",
               }}
             >
-              {/* Image area — larger, no text overlay */}
-              <div className="relative w-full" style={{ height: "110px" }}>
+              <div className="relative w-full" style={{ height: "80px" }}>
                 <Image
                   src={p.thumb}
                   alt={p.label}
@@ -332,8 +306,6 @@ export default function SmartFormats() {
                   className="object-cover"
                   sizes="140px"
                 />
-
-                {/* Colored icon badge on image */}
                 <div
                   className="absolute bottom-2 left-2 w-5 h-5 rounded-md flex items-center justify-center"
                   style={{
@@ -343,8 +315,6 @@ export default function SmartFormats() {
                 >
                   {p.icon(activeIndex === i ? p.accentColor : "rgba(255,255,255,0.4)")}
                 </div>
-
-                {/* Active tint */}
                 {activeIndex === i && (
                   <div
                     className="absolute inset-0 pointer-events-none"
@@ -352,14 +322,9 @@ export default function SmartFormats() {
                   />
                 )}
               </div>
-
-              {/* Text BELOW the image */}
-              <div
-                className="px-2 py-2"
-                style={{ backgroundColor: "#0e0e1a" }}
-              >
+              <div className="px-2 py-2" style={{ backgroundColor: "#0e0e1a" }}>
                 <p
-                  className="text-[11px] font-semibold leading-tight"
+                  className="text-[10px] md:text-[11px] font-semibold leading-tight"
                   style={{ color: activeIndex === i ? "white" : "rgba(255,255,255,0.5)" }}
                 >
                   {p.label}
@@ -369,12 +334,12 @@ export default function SmartFormats() {
           ))}
         </div>
 
-        {/* How it works */}
-        <div className="bg-[#0e0e1a] rounded-2xl p-8 border border-white/5">
+        {/* How it works — 1 col mobile, 3 col desktop */}
+        <div className="bg-[#0e0e1a] rounded-2xl p-6 md:p-8 border border-white/5">
           <h3 className="text-white text-base font-semibold text-center mb-8">
             How NFC Smart Products Work
           </h3>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {steps.map((step) => (
               <div key={step.num} className="flex flex-col items-center text-center gap-3">
                 <div>{step.icon}</div>
@@ -397,6 +362,5 @@ export default function SmartFormats() {
     </div>
   );
 }
-
 
 
