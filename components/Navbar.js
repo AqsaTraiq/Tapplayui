@@ -6,7 +6,7 @@ export default function Navbar() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0d1117] border-b border-white/5">
+    <nav className="fixed top-0 left-0 w-full max-w-[100vw] overflow-x-hidden z-50 bg-[#0d1117] border-b border-white/5">
       <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
@@ -82,7 +82,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Hamburger - mobile only */}
+        {/* Hamburger */}
         <button
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
           className="md:hidden flex flex-col justify-center items-center gap-1.5 p-2 bg-transparent border-none cursor-pointer"
@@ -94,45 +94,27 @@ export default function Navbar() {
 
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Menu */}
       {mobileNavOpen && (
         <div className="md:hidden bg-[#0d1117] border-t border-white/5 px-6 py-4 flex flex-col">
-
-          <a href="#" className="text-white/70 hover:text-white text-[14px] transition-colors no-underline py-3 border-b border-white/5">App</a>
-          <a href="#" className="text-white/70 hover:text-white text-[14px] transition-colors no-underline py-3 border-b border-white/5">Pricing</a>
-          <a href="#" className="text-white/70 hover:text-white text-[14px] transition-colors no-underline py-3 border-b border-white/5">About us</a>
-          <a href="#" className="text-white/70 hover:text-white text-[14px] transition-colors no-underline py-3 border-b border-white/5">Blog</a>
-
-          <div className="flex items-center gap-3 py-3 border-b border-white/5">
-            <div className="w-9 h-9 rounded-full bg-violet-600 flex items-center justify-center text-white text-[13px] font-semibold shrink-0">
-              LR
-            </div>
-            <div>
-              <p className="text-white text-[14px] font-semibold m-0 leading-tight">Lo Russell</p>
-              <p className="text-white/50 text-[12px] m-0 mt-0.5">lo@tapplay.io</p>
-            </div>
-          </div>
-
-          <a href="#" className="text-white/80 hover:text-white text-[14px] no-underline py-2.5">Create Event</a>
-          <a href="#" className="text-white/80 hover:text-white text-[14px] no-underline py-2.5">Artist Dashboard</a>
-          <a href="#" className="text-white/80 hover:text-white text-[14px] no-underline py-2.5">Admin Dashboard</a>
-          <a href="#" className="text-white/80 hover:text-white text-[14px] no-underline py-2.5">Account Settings</a>
-          <a href="#" className="text-red-400 hover:text-red-300 text-[14px] no-underline py-2.5 border-b border-white/5">Sign out</a>
+          <a href="#" className="text-white/70 hover:text-white text-[14px] py-3 border-b border-white/5">App</a>
+          <a href="#" className="text-white/70 hover:text-white text-[14px] py-3 border-b border-white/5">Pricing</a>
+          <a href="#" className="text-white/70 hover:text-white text-[14px] py-3 border-b border-white/5">About us</a>
+          <a href="#" className="text-white/70 hover:text-white text-[14px] py-3 border-b border-white/5">Blog</a>
 
           <div className="flex flex-col gap-2 pt-3">
-            <a href="#" className="text-center px-5 py-2.5 rounded-full border border-white/20 text-white text-[14px] no-underline hover:border-white/40 transition-colors">
+            <a href="#" className="text-center px-5 py-2.5 rounded-full border border-white/20 text-white text-[14px]">
               Get the app
             </a>
-            <a href="#" className="text-center px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-[14px] font-semibold no-underline transition-colors">
+            <a href="#" className="text-center px-5 py-2.5 rounded-full bg-blue-600 text-white text-[14px] font-semibold">
               For Artists
             </a>
           </div>
-
         </div>
       )}
-
     </nav>
   );
 }
+
 
 
