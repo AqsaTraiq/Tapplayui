@@ -25,7 +25,7 @@ export default function Player() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center justify-center px-6"
+      className="relative flex items-center justify-center px-6 py-16 md:py-0"
       style={{ backgroundColor: "#07091a", minHeight: "100vh" }}
     >
       <style>{`
@@ -57,12 +57,12 @@ export default function Player() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[1100px] flex items-center justify-between gap-20">
+      {/* Stack vertically on mobile, side by side on desktop */}
+      <div className="relative z-10 w-full max-w-[1100px] flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
 
-        {/* ══ LEFT SIDE ══ */}
+        {/* LEFT SIDE */}
         <div
-          className={visible ? "slide-left" : ""}
-          style={{ maxWidth: "490px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}
+          className={`w-full md:max-w-[490px] flex flex-col items-start ${visible ? "slide-left" : ""}`}
         >
           {/* Badge */}
           <div
@@ -79,11 +79,11 @@ export default function Player() {
             </span>
           </div>
 
-          {/* Heading — line break after "that" */}
+          {/* Heading */}
           <h2
             style={{
               color: "white",
-              fontSize: "clamp(40px, 4vw, 54px)",
+              fontSize: "clamp(32px, 4vw, 54px)",
               fontWeight: 850,
               lineHeight: 1.05,
               letterSpacing: "-2px",
@@ -101,21 +101,21 @@ export default function Player() {
           </p>
 
           {/* Live earnings */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "36px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "36px", flexWrap: "wrap" }}>
             <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#10b981", boxShadow: "0 0 8px #10b981", flexShrink: 0 }} />
             <span style={{ color: "#10b981", fontWeight: 700, fontSize: "15px" }}>${earnings.toLocaleString()}</span>
             <span style={{ color: "rgba(255,255,255,0.38)", fontSize: "14px" }}>earned this hour by creators</span>
           </div>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: "44px", marginBottom: "36px", alignItems: "flex-start" }}>
+          <div style={{ display: "flex", gap: "32px", marginBottom: "36px", alignItems: "flex-start", flexWrap: "wrap" }}>
             {[
               { value: "70%", label: "To Artists" },
               { value: "24-bit", label: "Lossless" },
               { value: "0.3s", label: "NFC Tap" },
             ].map((s) => (
               <div key={s.label}>
-                <p style={{ color: "white", fontSize: "34px", fontWeight: 900, margin: "0 0 4px 0", letterSpacing: "-1px", lineHeight: 1 }}>{s.value}</p>
+                <p style={{ color: "white", fontSize: "clamp(24px, 3vw, 34px)", fontWeight: 900, margin: "0 0 4px 0", letterSpacing: "-1px", lineHeight: 1 }}>{s.value}</p>
                 <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", margin: 0 }}>{s.label}</p>
               </div>
             ))}
@@ -142,10 +142,10 @@ export default function Player() {
           </div>
         </div>
 
-        {/* ══ RIGHT SIDE — Player Card ══ */}
+        {/* RIGHT SIDE — Player Card */}
         <div
-          className={visible ? "slide-right" : ""}
-          style={{ flexShrink: 0, width: "320px" }}
+          className={`w-full flex justify-center md:block md:flex-shrink-0 ${visible ? "slide-right" : ""}`}
+          style={{ maxWidth: "320px" }}
         >
           <div
             style={{
@@ -154,9 +154,10 @@ export default function Player() {
               border: "1px solid rgba(255,255,255,0.08)",
               overflow: "hidden",
               boxShadow: "0 40px 80px rgba(0,0,0,0.6)",
+              width: "100%",
             }}
           >
-            {/* ── Top bar ── */}
+            {/* Top bar */}
             <div
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -187,7 +188,7 @@ export default function Player() {
               </div>
             </div>
 
-            {/* ── Concert image with LIVE badge ── */}
+            {/* Concert image with LIVE badge */}
             <div style={{ position: "relative", margin: "10px 10px 0 10px", borderRadius: "12px", overflow: "hidden", height: "185px" }}>
               <div
                 style={{
@@ -214,7 +215,6 @@ export default function Player() {
                   }}
                 />
               </div>
-              {/* LIVE badge */}
               <div
                 style={{
                   position: "absolute", top: "10px", left: "10px",
@@ -229,7 +229,7 @@ export default function Player() {
               <button style={{ position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", width: "26px", height: "26px", borderRadius: "50%", backgroundColor: "rgba(0,0,0,0.45)", border: "none", color: "white", fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
             </div>
 
-            {/* ── Track info ── */}
+            {/* Track info */}
             <div style={{ padding: "12px 14px 8px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
                 <div style={{ width: "34px", height: "34px", borderRadius: "50%", flexShrink: 0, background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -246,7 +246,7 @@ export default function Player() {
               </div>
             </div>
 
-            {/* ── Progress bar ── */}
+            {/* Progress bar */}
             <div style={{ padding: "0 14px 6px 14px" }}>
               <div style={{ position: "relative", height: "3px", backgroundColor: "rgba(255,255,255,0.1)", borderRadius: "2px" }}>
                 <div style={{ width: "18%", height: "100%", background: "linear-gradient(to right, #3b82f6, #6366f1)", borderRadius: "2px" }} />
@@ -258,7 +258,7 @@ export default function Player() {
               </div>
             </div>
 
-            {/* ── Controls ── */}
+            {/* Controls */}
             <div style={{ padding: "4px 14px 12px 14px", display: "flex", alignItems: "center", justifyContent: "center", gap: "18px" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
@@ -269,14 +269,14 @@ export default function Player() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
             </div>
 
-            {/* ── Dots ── */}
+            {/* Dots */}
             <div style={{ display: "flex", justifyContent: "center", gap: "5px", paddingBottom: "12px" }}>
               {[true, false, false, false, false, false, false].map((active, i) => (
                 <div key={i} style={{ width: active ? "18px" : "5px", height: "5px", borderRadius: "999px", backgroundColor: active ? "white" : "rgba(255,255,255,0.2)", transition: "width 0.3s ease" }} />
               ))}
             </div>
 
-            {/* ── Split pills ── */}
+            {/* Split pills */}
             <div style={{ margin: "0 14px 10px 14px", display: "flex", alignItems: "center", justifyContent: "center", gap: "7px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", backgroundColor: "rgba(99,102,241,0.18)", border: "1px solid rgba(99,102,241,0.3)", borderRadius: "999px", padding: "5px 13px" }}>
                 <span style={{ color: "white", fontSize: "11px", fontWeight: 700 }}>70% Artist</span>
@@ -287,7 +287,7 @@ export default function Player() {
               </div>
             </div>
 
-            {/* ── TAP VERIFIED ── */}
+            {/* TAP VERIFIED */}
             <div style={{ margin: "0 14px 14px 14px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", backgroundColor: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)", borderRadius: "999px", padding: "6px 14px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2">
@@ -299,7 +299,6 @@ export default function Player() {
 
           </div>
         </div>
-        {/* ══ END RIGHT SIDE ══ */}
 
       </div>
     </section>

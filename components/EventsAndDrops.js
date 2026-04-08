@@ -5,20 +5,17 @@ import { useState, useEffect } from "react";
 function useCountdown(targetSeconds = 46 * 3600 + 46 * 60 + 32) {
   const [timeLeft, setTimeLeft] = useState(targetSeconds);
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
-  setMounted(true);
+    setMounted(true);
+    const interval = setInterval(() => {
+      setTimeLeft((t) => (t > 0 ? t - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const interval = setInterval(() => {
-    setTimeLeft((t) => (t > 0 ? t - 1 : 0));
-  }, 1000);
+  if (!mounted) return { hrs: "00", mins: "00", secs: "00" };
 
-  return () => clearInterval(interval);
-}, []);
-
- if (!mounted) {
-  return { hrs: "00", mins: "00", secs: "00" };
-}
   const hrs = String(Math.floor(timeLeft / 3600)).padStart(2, "0");
   const mins = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0");
   const secs = String(timeLeft % 60).padStart(2, "0");
@@ -71,6 +68,7 @@ const smallEvents = [
 
 const nfcPerks = [
   {
+    iconColor: "text-blue-400",
     icon: (
       <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -104,19 +102,20 @@ export default function EventsAndDrops() {
   const { hrs, mins, secs } = useCountdown();
 
   return (
-    <div className="bg-[#08080f] min-h-screen py-8 px-2 font-sans">
+    <div className="bg-[#08080f] min-h-screen py-8 px-4 sm:px-6 font-sans">
       <div className="max-w-7xl mx-auto">
 
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
+        {/* ── Top label row ── */}
+        <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="flex items-center gap-1.5 border border-white/10 rounded-full px-3 py-1 text-[10px] text-white/50">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               EVENTS & DROPS
             </span>
-            <span className="text-white/20 text-xs">·</span>
-            <span className="text-white/30 text-[10px]">Retention — Ecosystem Synergy</span>
+            <span className="text-white/20 text-xs hidden sm:inline">·</span>
+            <span className="text-white/30 text-[10px] hidden sm:inline">Retention — Ecosystem Synergy</span>
           </div>
           <button className="text-white/40 text-xs hover:text-white/70 transition-colors flex items-center gap-1">
             All events
@@ -126,7 +125,8 @@ export default function EventsAndDrops() {
           </button>
         </div>
 
-        <h1 className="text-3xl font-bold text-white mb-2">
+        {/* ── Heading ── */}
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Shows, Streams & <span className="text-green-400">NFC Unlocks.</span>
         </h1>
         <p className="text-white/40 text-sm mb-6 max-w-lg">
@@ -134,17 +134,21 @@ export default function EventsAndDrops() {
           VIP tier gating, and post-event replay access.
         </p>
 
-        {/* Featured Event Card */}
+        {/* ── Featured Event Card ── */}
         <div className="relative rounded-2xl overflow-hidden bg-[#0e0e1a] border border-white/5 mb-4">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-50"
             style={{ backgroundImage: "url('/eventanddrop.png')" }}
-          ></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30"></div>
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30" />
 
-          <div className="relative p-7">
-            <div className="flex items-start justify-between mb-16">
-              <div className="flex items-center gap-2">
+          <div className="relative p-5 sm:p-7">
+
+            {/* Top row: badges + countdown */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-8 sm:mb-16">
+
+              {/* Badges */}
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="flex items-center gap-1 bg-green-500/20 border border-green-500/40 text-green-400 text-[10px] font-semibold px-2.5 py-1 rounded-full">
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
@@ -159,57 +163,59 @@ export default function EventsAndDrops() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 bg-black/60 border border-white/10 rounded-xl px-4 py-2 backdrop-blur-sm">
-                <div className="text-center">
-                  <div className="text-white text-xl font-bold font-mono leading-none">{hrs}</div>
-                  <div className="text-white/30 text-[9px] uppercase tracking-widest mt-0.5">hrs</div>
-                </div>
-                <span className="text-white/30 text-lg font-bold mx-1">:</span>
-                <div className="text-center">
-                  <div className="text-white text-xl font-bold font-mono leading-none">{mins}</div>
-                  <div className="text-white/30 text-[9px] uppercase tracking-widest mt-0.5">min</div>
-                </div>
-                <span className="text-white/30 text-lg font-bold mx-1">:</span>
-                <div className="text-center">
-                  <div className="text-white text-xl font-bold font-mono leading-none">{secs}</div>
-                  <div className="text-white/30 text-[9px] uppercase tracking-widest mt-0.5">sec</div>
-                </div>
+              {/* Countdown */}
+              <div className="flex items-center gap-1 bg-black/60 border border-white/10 rounded-xl px-4 py-2 backdrop-blur-sm self-start">
+                {[{ val: hrs, label: "hrs" }, { val: mins, label: "min" }, { val: secs, label: "sec" }].map(
+                  (item, i) => (
+                    <div key={item.label} className="flex items-center gap-1">
+                      {i > 0 && <span className="text-white/30 text-lg font-bold">:</span>}
+                      <div className="text-center">
+                        <div className="text-white text-xl font-bold font-mono leading-none">{item.val}</div>
+                        <div className="text-white/30 text-[9px] uppercase tracking-widest mt-0.5">{item.label}</div>
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
+            {/* Event info */}
             <div>
-              <h2 className="text-white text-3xl font-bold mb-1">Midnight Live LA</h2>
+              <h2 className="text-white text-2xl sm:text-3xl font-bold mb-1">Midnight Live LA</h2>
               <p className="text-white/50 text-sm mb-3">Kira Nova</p>
 
-              <div className="flex items-center gap-4 text-white/40 text-xs mb-3">
+              {/* Meta — stack on mobile, row on sm+ */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-white/40 text-xs mb-3">
                 <span className="flex items-center gap-1">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Mar 15, 2026 — 9:00 PM
                 </span>
                 <span className="flex items-center gap-1">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   The Roxy, Los Angeles
                 </span>
                 <span className="flex items-center gap-1">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   2.4K attending
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 mb-5">
+              {/* Tags */}
+              <div className="flex items-center gap-2 mb-5 flex-wrap">
                 <span className="border border-white/15 text-white/50 text-[10px] px-2.5 py-1 rounded-full">NFC Wristband</span>
                 <span className="border border-white/15 text-white/50 text-[10px] px-2.5 py-1 rounded-full">VIP Replay</span>
                 <span className="border border-white/15 text-white/50 text-[10px] px-2.5 py-1 rounded-full">Merch Unlock</span>
               </div>
 
-              <div className="flex items-center gap-3">
+              {/* CTA */}
+              <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-white text-2xl font-bold">$89</span>
                 <button className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors">
                   Get Tickets
@@ -222,13 +228,28 @@ export default function EventsAndDrops() {
           </div>
         </div>
 
-        {/* Small Event Cards */}
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        {/* ── Small Event Cards ──
+            Mobile:  horizontal scroll carousel (1 card + peek)
+            sm:      2 columns grid
+            lg:      3 columns grid
+        ── */}
+        <style>{`.events-carousel::-webkit-scrollbar{display:none}`}</style>
+        <div
+          className="events-carousel mb-4 
+            flex flex-row overflow-x-auto gap-3 
+            -mx-4 px-4 sm:mx-0 sm:px-0
+            sm:grid sm:grid-cols-2 sm:overflow-visible
+            lg:grid-cols-3"
+          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+        >
           {smallEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-[#0e0e1a] rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all"
+              className="bg-[#0e0e1a] rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all
+                flex-shrink-0 w-[78vw] sm:w-auto"
+              style={{ scrollSnapAlign: "start" }}
             >
+              {/* Image */}
               <div className="relative">
                 <img
                   src={event.image}
@@ -236,17 +257,14 @@ export default function EventsAndDrops() {
                   className="w-full h-36 object-cover"
                 />
                 <div className="absolute top-2 left-2 right-2 flex items-start justify-between">
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap">
                     {event.badge && (
                       <span className={`${event.badgeColor || "bg-purple-600"} text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide`}>
                         {event.badge}
                       </span>
                     )}
                     {event.badgeAlt && event.badgeAlt.map((b) => (
-                      <span
-                        key={b}
-                        className="bg-green-500/80 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide"
-                      >
+                      <span key={b} className="bg-green-500/80 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide">
                         {b}
                       </span>
                     ))}
@@ -257,19 +275,20 @@ export default function EventsAndDrops() {
                 </div>
               </div>
 
+              {/* Content */}
               <div className="p-4">
                 <h3 className="text-white text-sm font-semibold mb-0.5">{event.name}</h3>
                 <p className="text-white/40 text-xs mb-3">{event.artist}</p>
 
-                <div className="flex items-center gap-3 text-white/35 text-[10px] mb-2">
+                <div className="flex flex-col gap-1 text-white/35 text-[10px] mb-2 sm:flex-row sm:gap-3">
                   <span className="flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     {event.date}
                   </span>
                   <span className="flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -299,7 +318,11 @@ export default function EventsAndDrops() {
           ))}
         </div>
 
-        {/* NFC Wristband Perks */}
+        {/* ── NFC Wristband Perks ──
+            Mobile: vertical stack
+            sm:     2 columns
+            lg:     3 columns
+        ── */}
         <div className="bg-[#0e0e1a] rounded-2xl p-5 border border-white/5 mb-3">
           <div className="flex items-center gap-2 mb-1">
             <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -310,7 +333,7 @@ export default function EventsAndDrops() {
           <p className="text-white/35 text-xs mb-5">
             Tap your wristband at venue to unlock exclusive fan experiences.
           </p>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {nfcPerks.map((perk) => (
               <div
                 key={perk.label}
@@ -326,9 +349,12 @@ export default function EventsAndDrops() {
           </div>
         </div>
 
-        {/* Ticket Integration Footer */}
-        <div className="bg-[#0e0e1a] rounded-2xl px-5 py-4 border border-white/5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        {/* ── Ticket Integration Footer ──
+            Mobile: stacks vertically
+            sm:     row layout restored
+        ── */}
+        <div className="bg-[#0e0e1a] rounded-2xl px-5 py-4 border border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
@@ -341,7 +367,7 @@ export default function EventsAndDrops() {
               </p>
             </div>
           </div>
-          <button className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-white/60 hover:border-white/25 transition-all flex-shrink-0">
+          <button className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-white/60 hover:border-white/25 transition-all flex-shrink-0 self-end sm:self-auto">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
@@ -352,8 +378,6 @@ export default function EventsAndDrops() {
     </div>
   );
 }
-
-
 
 
 

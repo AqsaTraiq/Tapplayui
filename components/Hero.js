@@ -33,8 +33,8 @@ export default function Hero() {
         TapPlay turns NFC-enabled merch into instant access — exclusive streams, artist profiles, and fan rewards.
       </p>
 
-      {/* Laptop frame */}
-      <div className="relative z-10 w-full max-w-[1050px]">
+      {/* Laptop frame — hidden on mobile */}
+      <div className="relative z-10 w-full max-w-[1050px] hidden md:block">
         <div
           className="relative rounded-2xl overflow-hidden"
           style={{
@@ -49,10 +49,9 @@ export default function Hero() {
             <div className="w-2 h-2 rounded-full bg-white/20" />
           </div>
 
-          {/* ── Main inner stage ── */}
+          {/* Main inner stage */}
           <div className="relative w-full" style={{ height: "470px" }}>
 
-            {/* Float keyframes */}
             <style>{`
               @keyframes floatA {
                 0%, 100% { transform: translateY(0px); }
@@ -64,7 +63,7 @@ export default function Hero() {
               }
             `}</style>
 
-            {/* ── Central mockup image — perfectly centered, rounded ── */}
+            {/* Central mockup image */}
             <div
               className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-center"
               style={{ width: "42%" }}
@@ -77,7 +76,7 @@ export default function Hero() {
               />
             </div>
 
-            {/* ── TOP-LEFT: Total Earnings ── */}
+            {/* TOP-LEFT: Total Earnings */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
               style={{ top: "16px", left: "16px", minWidth: "195px", animation: "floatA 3.2s ease-in-out infinite" }}
@@ -99,7 +98,7 @@ export default function Hero() {
               <p className="text-white/30 text-[9.5px]">Lifetime earnings from all sources</p>
             </div>
 
-            {/* ── TOP-RIGHT: Hustle & Flow ── */}
+            {/* TOP-RIGHT: Hustle & Flow */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
               style={{ top: "16px", right: "16px", minWidth: "175px", animation: "floatB 3.8s ease-in-out infinite" }}
@@ -123,7 +122,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* ── BOTTOM-LEFT: New Order ── */}
+            {/* BOTTOM-LEFT: New Order */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
               style={{ bottom: "16px", left: "16px", minWidth: "210px", animation: "floatB 4.1s ease-in-out infinite" }}
@@ -147,7 +146,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* ── BOTTOM-RIGHT: Sprinkle Me ── */}
+            {/* BOTTOM-RIGHT: Sprinkle Me */}
             <div
               className="absolute z-20 bg-[#141830] rounded-2xl border border-white/10 px-4 py-3 shadow-2xl shadow-black/40"
               style={{ bottom: "16px", right: "16px", minWidth: "210px", animation: "floatA 3.5s ease-in-out infinite" }}
@@ -169,7 +168,6 @@ export default function Hero() {
             </div>
 
           </div>
-          {/* ── End main inner stage ── */}
 
           {/* Bottom trackpad bar */}
           <div className="h-6 bg-[#12162e] border-t border-white/[0.06] flex items-center justify-center">
@@ -178,10 +176,19 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Extra bottom spacing */}
+      {/* Mobile only — center image without cards */}
+      <div className="relative z-10 w-full max-w-[320px] md:hidden">
+        <img
+          src="/img.png"
+          alt="App dashboard mockup"
+          className="w-full h-auto block rounded-2xl"
+        />
+      </div>
+
       <div className="h-10" />
     </section>
   );
 }
+
 
 

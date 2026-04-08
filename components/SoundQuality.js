@@ -77,21 +77,54 @@ export default function SoundQuality() {
           opacity: 0;
           animation: slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
         }
+        .sq-wrapper {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 24px;
+          display: flex;
+          align-items: center;
+          gap: 60px;
+        }
+        .sq-image-box {
+          flex: 1;
+          min-width: 400px;
+          height: 500px;
+          border-radius: 20px;
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.06);
+        }
+        .sq-left-panel {
+          flex: 1;
+          min-width: 340px;
+        }
+        @media (max-width: 768px) {
+          .sq-wrapper {
+            flex-direction: column;
+            gap: 40px;
+            padding: 0 16px;
+          }
+          .sq-left-panel {
+            min-width: unset;
+            width: 100%;
+          }
+          .sq-image-box {
+            min-width: unset;
+            width: 100%;
+            height: 280px;
+            order: -1;
+          }
+          section[data-sq] {
+            padding: 48px 0 !important;
+          }
+        }
       `}</style>
 
-      <div style={{
-        maxWidth: "1280px",
-        margin: "0 auto",
-        padding: "0 24px",
-        display: "flex",
-        alignItems: "center",
-        gap: "60px",
-      }}>
+      <div className="sq-wrapper">
 
         {/* ══ LEFT SIDE ══ */}
         <div
-          className={visible ? "sq-left" : ""}
-          style={{ flex: 1, minWidth: "340px" }}
+          className={`sq-left-panel${visible ? " sq-left" : ""}`}
         >
           {/* Badge */}
           <div style={{
@@ -109,7 +142,7 @@ export default function SoundQuality() {
           {/* Heading */}
           <h2 style={{
             color: "white",
-            fontSize: "clamp(36px, 4vw, 56px)",
+            fontSize: "clamp(32px, 4vw, 56px)",
             fontWeight: 800,
             lineHeight: 1.05,
             margin: "0 0 20px 0",
@@ -154,16 +187,7 @@ export default function SoundQuality() {
 
         {/* ══ RIGHT SIDE ══ */}
         <div
-          className={visible ? "sq-right" : ""}
-          style={{
-            flex: 1,
-            minWidth: "400px",
-            height: "500px",
-            borderRadius: "20px",
-            position: "relative",
-            overflow: "hidden",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
+          className={`sq-image-box${visible ? " sq-right" : ""}`}
         >
           {/* Full image */}
           <img

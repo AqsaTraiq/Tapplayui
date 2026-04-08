@@ -157,18 +157,29 @@ const cards = [
   },
 ];
 
-const VISIBLE = 3;
+const DESKTOP_VISIBLE = 3;
+const MOBILE_VISIBLE = 1;
 const TOTAL = cards.length;
 
 export default function Features() {
   const [index, setIndex] = useState(1);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile
+  if (typeof window !== "undefined") {
+    const mobile = window.innerWidth < 768;
+    if (mobile !== isMobile) setIsMobile(mobile);
+  }
+
+  const VISIBLE = isMobile ? MOBILE_VISIBLE : DESKTOP_VISIBLE;
+  const maxIndex = TOTAL - VISIBLE;
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
-  const next = () => setIndex((i) => Math.min(TOTAL - VISIBLE, i + 1));
+  const next = () => setIndex((i) => Math.min(maxIndex, i + 1));
 
   const canPrev = index > 0;
-  const canNext = index < TOTAL - VISIBLE;
+  const canNext = index < maxIndex;
 
   return (
     <section
@@ -204,7 +215,7 @@ export default function Features() {
       <h2
         style={{
           color: "white",
-          fontSize: "clamp(34px, 5vw, 58px)",
+          fontSize: "clamp(28px, 5vw, 58px)",
           fontWeight: 800,
           textAlign: "center",
           margin: "0 0 14px 0",
@@ -234,7 +245,7 @@ export default function Features() {
         style={{
           width: "100%",
           maxWidth: "1100px",
-          padding: "0 24px",
+          padding: "0 40px",
           boxSizing: "border-box",
           position: "relative",
         }}
@@ -245,7 +256,7 @@ export default function Features() {
             onClick={prev}
             style={{
               position: "absolute",
-              left: "-4px",
+              left: "0px",
               top: "50%",
               transform: "translateY(-60%)",
               zIndex: 10,
@@ -274,7 +285,7 @@ export default function Features() {
             onClick={next}
             style={{
               position: "absolute",
-              right: "-4px",
+              right: "0px",
               top: "50%",
               transform: "translateY(-60%)",
               zIndex: 10,
@@ -323,7 +334,6 @@ export default function Features() {
                   flexDirection: "column",
                   minWidth: 0,
                   cursor: "pointer",
-                  // ── Scale entire card on hover ──
                   transform: hoveredCard === i ? "scale(1.04)" : "scale(1)",
                   transition: "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
                 }}
@@ -417,7 +427,7 @@ export default function Features() {
 
       {/* Dot indicators */}
       <div style={{ display: "flex", gap: "8px", marginTop: "36px", alignItems: "center" }}>
-        {Array.from({ length: TOTAL - VISIBLE + 1 }).map((_, i) => (
+        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
           <div
             key={i}
             onClick={() => setIndex(i)}
@@ -435,7 +445,4 @@ export default function Features() {
     </section>
   );
 }
-
-
-
 

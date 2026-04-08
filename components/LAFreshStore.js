@@ -25,6 +25,73 @@ const products = [
   { id: 20, brand: "LA FRESH", name: "LA Fresh Limited Drop Tee",       price: 55,  original: 75,  badge: "LIMITED",     tap: true, image: "/shirt20.png" },
 ];
 
+function ProductCard({ product, hovered, onEnter, onLeave, className }) {
+  return (
+    <div
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      className={`bg-[#0d0d1a] rounded-xl overflow-hidden border border-white/5 hover:border-white/15 transition-all cursor-pointer ${className || ""}`}
+    >
+      <div className="relative overflow-hidden">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full aspect-square object-cover transition-transform duration-500"
+          style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
+        />
+        <div
+          className="absolute inset-0 bg-black transition-opacity duration-300"
+          style={{ opacity: hovered ? 0.45 : 0 }}
+        />
+        <div
+          className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
+          style={{ opacity: hovered ? 1 : 0 }}
+        >
+          <button
+            className="bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1.5"
+            style={{ boxShadow: "0 4px 16px rgba(34,197,94,0.45)" }}
+          >
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            Shop Now
+          </button>
+        </div>
+        <div className="absolute top-2 left-2 right-2 flex items-start justify-between z-10">
+          {product.badge ? (
+            <span className="bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">
+              {product.badge}
+            </span>
+          ) : (
+            <span />
+          )}
+          {product.tap && (
+            <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wide border border-white/10">
+              <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+              </svg>
+              TAP
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="p-2.5">
+        <p className="text-green-500 text-[9px] font-bold tracking-widest uppercase mb-0.5">{product.brand}</p>
+        <p className="text-white text-xs font-medium leading-tight mb-2 line-clamp-2">{product.name}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="text-white text-sm font-bold">${product.price}</span>
+            <span className="text-white/30 text-xs line-through">${product.original}</span>
+          </div>
+          <svg className="w-3.5 h-3.5 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LAFreshStore() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredProduct, setHoveredProduct] = useState(null);
@@ -39,10 +106,124 @@ export default function LAFreshStore() {
 
   return (
     <div className="bg-[#0a0a12] min-h-screen py-6 px-4 font-sans">
+      <style>{`
+        /* ── Desktop product grid (arrows-controlled) ── */
+        .laf-desktop-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 12px;
+        }
+        /* ── Mobile horizontal scroll carousel ── */
+        .laf-mobile-scroll {
+          display: none;
+        }
+        /* ── Header ── */
+        .laf-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+        /* ── Meta row (description + badges) ── */
+        .laf-meta {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 24px;
+          margin-bottom: 24px;
+        }
+        .laf-badges {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-shrink: 0;
+          flex-wrap: wrap;
+        }
+        /* ── Steps grid ── */
+        .laf-steps {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+        /* ── Footer ── */
+        .laf-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        /* ── Nav buttons (hidden on mobile — carousel replaces them) ── */
+        .laf-nav-btn { display: flex; }
 
+        @media (max-width: 768px) {
+          .laf-desktop-grid { display: none; }
+          .laf-mobile-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 10px;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-bottom: 4px;
+            margin-bottom: 0;
+            scrollbar-width: none;
+          }
+          .laf-mobile-scroll::-webkit-scrollbar { display: none; }
+          .laf-mobile-card {
+            flex: 0 0 52vw;
+            max-width: 200px;
+            scroll-snap-align: start;
+          }
+          .laf-header {
+            flex-direction: column;
+            gap: 14px;
+          }
+          .laf-header-right {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .laf-nav-btn { display: none; }
+          .laf-meta {
+            flex-direction: column;
+            gap: 14px;
+          }
+          .laf-badges { flex-shrink: unset; }
+          .laf-steps {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+          .laf-footer {
+            flex-direction: column;
+            gap: 14px;
+            align-items: flex-start;
+          }
+          .laf-footer-right {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .laf-nfc-label { display: none; }
+        }
+
+        @media (max-width: 420px) {
+          .laf-mobile-card {
+            flex: 0 0 68vw;
+            max-width: unset;
+          }
+        }
+      `}</style>
+
+      {/* ── Main card ── */}
       <div className="max-w-5xl mx-auto bg-[#11111f] rounded-2xl p-6 mb-4 border border-white/5">
 
-        <div className="flex items-start justify-between mb-5">
+        {/* Header */}
+        <div className="laf-header">
+          {/* Left: logo + name */}
           <div className="flex items-start gap-3">
             <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
               LF
@@ -54,7 +235,7 @@ export default function LAFreshStore() {
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 <span className="flex items-center gap-1 bg-[#1a1a2e] border border-white/10 rounded-full px-2 py-0.5 text-xs text-white/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse" />
                   LIVE
                 </span>
               </div>
@@ -67,21 +248,14 @@ export default function LAFreshStore() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={prev}
-              disabled={currentIndex === 0}
-              className="w-9 h-9 rounded-full bg-[#1e1e30] border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 disabled:opacity-30 transition-all"
-            >
+          {/* Right: nav + shop button */}
+          <div className="laf-header-right flex items-center gap-2">
+            <button onClick={prev} disabled={currentIndex === 0} className="laf-nav-btn w-9 h-9 rounded-full bg-[#1e1e30] border border-white/10 items-center justify-center text-white/60 hover:text-white hover:border-white/30 disabled:opacity-30 transition-all">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button
-              onClick={next}
-              disabled={currentIndex >= maxIndex}
-              className="w-9 h-9 rounded-full bg-[#1e1e30] border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 disabled:opacity-30 transition-all"
-            >
+            <button onClick={next} disabled={currentIndex >= maxIndex} className="laf-nav-btn w-9 h-9 rounded-full bg-[#1e1e30] border border-white/10 items-center justify-center text-white/60 hover:text-white hover:border-white/30 disabled:opacity-30 transition-all">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -98,11 +272,12 @@ export default function LAFreshStore() {
           </div>
         </div>
 
-        <div className="flex items-start justify-between gap-6 mb-6">
+        {/* Meta row */}
+        <div className="laf-meta">
           <p className="text-white/50 text-sm leading-relaxed max-w-md">
             Premium streetwear meets NFC technology. Tap-enabled pieces that unlock exclusive content, verify authenticity and connect you directly with LA Fresh. 20 products live now.
           </p>
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="laf-badges">
             <div className="flex items-center gap-1.5 bg-[#1a1a2e] border border-white/10 rounded-full px-3 py-1.5 text-xs text-white/70">
               <svg className="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -126,154 +301,90 @@ export default function LAFreshStore() {
           </div>
         </div>
 
-        <div className="grid grid-cols-5 gap-3 overflow-hidden">
+        {/* Desktop: arrow-controlled 5-up grid */}
+        <div className="laf-desktop-grid">
           {visibleProducts.map((product) => (
-            <div
+            <ProductCard
               key={product.id}
-              onMouseEnter={() => setHoveredProduct(product.id)}
-              onMouseLeave={() => setHoveredProduct(null)}
-              className="bg-[#0d0d1a] rounded-xl overflow-hidden border border-white/5 hover:border-white/15 transition-all cursor-pointer"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full aspect-square object-cover transition-transform duration-500"
-                  style={{ transform: hoveredProduct === product.id ? "scale(1.06)" : "scale(1)" }}
-                />
-                <div
-                  className="absolute inset-0 bg-black transition-opacity duration-300"
-                  style={{ opacity: hoveredProduct === product.id ? 0.45 : 0 }}
-                ></div>
-                <div
-                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
-                  style={{ opacity: hoveredProduct === product.id ? 1 : 0 }}
-                >
-                  <button
-                    className="bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1.5"
-                    style={{ boxShadow: "0 4px 16px rgba(34,197,94,0.45)" }}
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    Shop Now
-                  </button>
-                </div>
-                <div className="absolute top-2 left-2 right-2 flex items-start justify-between z-10">
-                  {product.badge ? (
-                    <span className="bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">
-                      {product.badge}
-                    </span>
-                  ) : (
-                    <span></span>
-                  )}
-                  {product.tap && (
-                    <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wide border border-white/10">
-                      <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                      </svg>
-                      TAP
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="p-2.5">
-                <p className="text-green-500 text-[9px] font-bold tracking-widest uppercase mb-0.5">
-                  {product.brand}
-                </p>
-                <p className="text-white text-xs font-medium leading-tight mb-2 line-clamp-2">
-                  {product.name}
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-white text-sm font-bold">${product.price}</span>
-                    <span className="text-white/30 text-xs line-through">${product.original}</span>
-                  </div>
-                  <svg className="w-3.5 h-3.5 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                  </svg>
-                </div>
-              </div>
-            </div>
+              product={product}
+              hovered={hoveredProduct === product.id}
+              onEnter={() => setHoveredProduct(product.id)}
+              onLeave={() => setHoveredProduct(null)}
+            />
+          ))}
+        </div>
+
+        {/* Mobile: horizontal scroll carousel (all 20 products) */}
+        <div className="laf-mobile-scroll">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              hovered={hoveredProduct === product.id}
+              onEnter={() => setHoveredProduct(product.id)}
+              onLeave={() => setHoveredProduct(null)}
+              className="laf-mobile-card"
+            />
           ))}
         </div>
 
       </div>
 
+      {/* ── Steps card ── */}
       <div className="max-w-5xl mx-auto bg-[#11111f] rounded-2xl p-6 mb-4 border border-white/5">
-        <div className="grid grid-cols-4 gap-6">
-
-          <div className="flex flex-col items-center text-center gap-2">
-            <svg className="w-6 h-6 text-green-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg>
-            <p className="text-white/30 text-[10px] font-mono tracking-widest">01</p>
-            <p className="text-white font-semibold text-sm">Shop</p>
-            <p className="text-white/40 text-xs leading-relaxed">Browse LA Fresh NFC-enabled merch.</p>
-          </div>
-
-          <div className="flex flex-col items-center text-center gap-2">
-            <svg className="w-6 h-6 text-blue-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12h12l1-12" />
-            </svg>
-            <p className="text-white/30 text-[10px] font-mono tracking-widest">02</p>
-            <p className="text-white font-semibold text-sm">Ship</p>
-            <p className="text-white/40 text-xs leading-relaxed">Product ships with embedded NFC chip.</p>
-          </div>
-
-          <div className="flex flex-col items-center text-center gap-2">
-            <svg className="w-6 h-6 text-purple-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-            </svg>
-            <p className="text-white/30 text-[10px] font-mono tracking-widest">03</p>
-            <p className="text-white font-semibold text-sm">Tap</p>
-            <p className="text-white/40 text-xs leading-relaxed">Hold your phone to the NFC tag.</p>
-          </div>
-
-          <div className="flex flex-col items-center text-center gap-2">
-            <svg className="w-6 h-6 text-pink-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-            </svg>
-            <p className="text-white/30 text-[10px] font-mono tracking-widest">04</p>
-            <p className="text-white font-semibold text-sm">Unlock</p>
-            <p className="text-white/40 text-xs leading-relaxed">Exclusive drops, AR and loyalty rewards.</p>
-          </div>
-
+        <div className="laf-steps">
+          {[
+            { icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z", color: "text-green-400",  num: "01", label: "Shop",   desc: "Browse LA Fresh NFC-enabled merch." },
+            { icon: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12h12l1-12", color: "text-blue-400",   num: "02", label: "Ship",   desc: "Product ships with embedded NFC chip." },
+            { icon: "M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0", color: "text-purple-400", num: "03", label: "Tap",    desc: "Hold your phone to the NFC tag." },
+            { icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",     color: "text-pink-400",   num: "04", label: "Unlock", desc: "Exclusive drops, AR and loyalty rewards." },
+          ].map((s, i) => (
+            <div key={i} className="flex flex-col items-center text-center gap-2">
+              <svg className={`w-6 h-6 ${s.color} mb-1`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={s.icon} />
+              </svg>
+              <p className="text-white/30 text-[10px] font-mono tracking-widest">{s.num}</p>
+              <p className="text-white font-semibold text-sm">{s.label}</p>
+              <p className="text-white/40 text-xs leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto bg-[#11111f] rounded-2xl px-5 py-3.5 border border-white/5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center text-white font-bold text-sm">
-            LF
+      {/* ── Footer card ── */}
+      <div className="max-w-5xl mx-auto bg-[#11111f] rounded-2xl px-5 py-3.5 border border-white/5">
+        <div className="laf-footer">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center text-white font-bold text-sm">
+              LF
+            </div>
+            <div>
+              <p className="text-white text-sm font-semibold">LA Fresh Merch Store</p>
+              <p className="text-white/30 text-[10px]">Powered by Shopify · TapPlay NFC</p>
+            </div>
+            <span className="flex items-center gap-1 text-[10px] text-green-400 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              LIVE
+            </span>
           </div>
-          <div>
-            <p className="text-white text-sm font-semibold">LA Fresh Merch Store</p>
-            <p className="text-white/30 text-[10px]">Powered by Shopify · TapPlay NFC</p>
+          <div className="laf-footer-right flex items-center gap-3">
+            <div className="laf-nfc-label flex items-center gap-1.5 text-white/40 text-xs">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+              </svg>
+              <span>NFC Tap-to-Buy</span>
+            </div>
+            <a href="https://lafresh.store" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors">
+              lafresh.store
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
-          <span className="flex items-center gap-1 text-[10px] text-green-400 font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-            LIVE
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-white/40 text-xs">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-            </svg>
-            <span>NFC Tap-to-Buy</span>
-          </div>
-          <a href="https://lafresh.store" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors">
-            lafresh.store
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
         </div>
       </div>
 
     </div>
   );
 }
-
 
